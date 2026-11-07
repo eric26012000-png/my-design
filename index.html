@@ -3,226 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Эрик | Премиум Веб-Дизайн</title>
+    <title>Эрик | Premium Portfolio</title>
     <link href="https://googleapis.com" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Inter', sans-serif;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; transition: all 0.3s ease; }
+        body { background: #f1f5f9; color: #0f172a; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 60px 20px; }
+        .container { background: #ffffff; border: 1px solid rgba(226, 232, 240, 0.8); padding: 48px 40px; border-radius: 24px; box-shadow: 0 10px 40px rgba(0,0,0,0.02); text-align: center; max-width: 500px; width: 100%; position: relative; }
+        .theme-toggle { position: absolute; top: 24px; right: 24px; background: #f8fafc; border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 50%; width: 44px; height: 44px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 20px; z-index: 10; }
+        .avatar { width: 100px; height: 100px; background: #e6fffa; border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 50%; margin: 0 auto 24px; display: flex; align-items: center; justify-content: center; font-size: 42px; }
+        h1 { font-size: 28px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.03em; }
+        .tag { display: inline-block; background: #e6fffa; color: #00a3c4; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; padding: 6px 16px; border-radius: 100px; margin-bottom: 24px; }
+        p { color: #64748b; font-size: 15px; line-height: 1.7; margin-bottom: 40px; }
+        .section-title { font-size: 12px; font-weight: 600; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 20px; text-align: left; padding-left: 4px; }
+        .portfolio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 40px; }
+        @media (max-width: 440px) { .portfolio-grid { grid-template-columns: 1fr; } }
+        .work-card { background: #f8fafc; border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 16px; overflow: hidden; text-align: left; cursor: pointer; }
+        .work-card:hover { transform: translateY(-4px); border-color: #319795; box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+        .work-image { width: 100%; height: 130px; background-size: cover; background-position: center; }
+        .work-info { padding: 16px; }
+        .work-name { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+        .work-desc { font-size: 12px; color: #64748b; }
+        .social-title { font-size: 12px; font-weight: 600; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; margin-bottom: 16px; }
+        .social-links { display: flex; justify-content: center; gap: 16px; }
+        .social-btn { display: flex; align-items: center; justify-content: center; width: 50px; height: 50px; background: #f8fafc; border: 1px solid rgba(226, 232, 240, 0.8); border-radius: 12px; text-decoration: none; font-size: 20px; }
+        .social-btn:hover { border-color: #319795; transform: translateY(-2px); }
+        .footer { margin-top: 32px; font-size: 11px; color: #64748b; letter-spacing: 0.05em; font-weight: 500; }
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; z-index: 1000; padding: 20px; }
+        .popup-overlay.active { opacity: 1; pointer-events: auto; }
+        .popup-card { background: #ffffff; border: 1px solid rgba(226, 232, 240, 0.8); padding: 32px; border-radius: 20px; max-width: 450px; width: 100%; text-align: center; position: relative; transform: scale(0.9); }
+        .popup-overlay.active .popup-card { transform: scale(1); }
+        .popup-close { position: absolute; top: 16px; right: 16px; background: none; border: none; font-size: 20px; color: #0f172a; cursor: pointer; }
 
-        body {
-            background: radial-gradient(circle at top, #ffffff, #f1f5f9);
-            color: #0f172a;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 60px 20px;
-        }
-
-        .container {
-            background: #ffffff;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            padding: 48px 40px;
-            border-radius: 24px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
-            text-align: center;
-            max-width: 550px;
-            width: 100%;
-            margin-bottom: 24px;
-        }
-
-        .avatar-wrap {
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 28px;
-        }
-
-        .avatar {
-            width: 100%;
-            height: 100%;
-            background: #f0fdfa;
-            border: 1px solid #b2f5ea;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 42px;
-        }
-
-        h1 {
-            font-size: 28px;
-            font-weight: 700;
-            color: #0f172a;
-            margin-bottom: 6px;
-            letter-spacing: -0.03em;
-        }
-
-        .tag {
-            display: inline-block;
-            background: #e6fffa;
-            color: #00a3c4;
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            padding: 6px 16px;
-            border-radius: 100px;
-            margin-bottom: 24px;
-        }
-
-        p {
-            color: #475569;
-            font-size: 15px;
-            line-height: 1.7;
-            margin-bottom: 40px;
-        }
-
-        /* Новый блок портфолио */
-        .section-title {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            color: #94a3b8;
-            letter-spacing: 0.1em;
-            margin-bottom: 20px;
-            text-align: left;
-            padding-left: 4px;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-
-        @media (max-width: 440px) {
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .work-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            overflow: hidden;
-            text-align: left;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .work-card:hover {
-            transform: translateY(-4px);
-            border-color: #319795;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.04);
-        }
-
-        .work-image {
-            width: 100%;
-            height: 130px;
-            background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #64748b;
-            font-weight: 500;
-            font-size: 14px;
-            letter-spacing: -0.01em;
-        }
-
-        /* Красивые градиенты-заглушки для будущего дизайна */
-        .img-1 { background: linear-gradient(135deg, #e0f2fe, #bae6fd); color: #0369a1; }
-        .img-2 { background: linear-gradient(135deg, #f0fdf4, #bbf7d0); color: #15803d; }
-
-        .work-info {
-            padding: 16px;
-        }
-
-        .work-name {
-            font-size: 15px;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 4px;
-        }
-
-        .work-desc {
-            font-size: 12px;
-            color: #64748b;
-        }
-
-        .btn-main {
-            display: block;
-            background: #1e3a8a;
-            color: #ffffff;
-            padding: 16px 24px;
-            border-radius: 12px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 12px rgba(30, 58, 138, 0.15);
-        }
-
-        .btn-main:hover {
-            background: #319795;
-            box-shadow: 0 6px 20px rgba(49, 151, 149, 0.3);
-        }
-
-        .footer {
-            margin-top: 16px;
-            font-size: 11px;
-            color: #94a3b8;
-            letter-spacing: 0.05em;
-            font-weight: 500;
-        }
+        /* СТИЛИ ДЛЯ ТЕМНОЙ ТЕМЫ */
+        body.dark-mode { background: #0f172a; color: #f8fafc; }
+        body.dark-mode .container { background: #1e293b; border-color: rgba(255, 255, 255, 0.1); box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3); }
+        body.dark-mode .theme-toggle { background: #111827; border-color: rgba(255, 255, 255, 0.1); }
+        body.dark-mode h1 { color: #ffffff; }
+        body.dark-mode p { color: #94a3b8; }
+        body.dark-mode .tag { background: rgba(49, 151, 149, 0.2); color: #4fd1c5; }
+        body.dark-mode .section-title, body.dark-mode .social-title { color: #94a3b8; }
+        body.dark-mode .work-card { background: #111827; border-color: rgba(255, 255, 255, 0.1); }
+        body.dark-mode .work-name { color: #ffffff; }
+        body.dark-mode .work-desc { color: #94a3b8; }
+        body.dark-mode .social-btn { background: #111827; border-color: rgba(255, 255, 255, 0.1); }
+        body.dark-mode .popup-card { background: #1e293b; border-color: rgba(255, 255, 255, 0.1); }
+        body.dark-mode .popup-close { color: #ffffff; }
     </style>
 </head>
 <body>
-
     <div class="container">
-        <div class="avatar-wrap">
-            <div class="avatar">⚡</div>
-        </div>
+        <button class="theme-toggle" id="themeBtn" onclick="document.body.classList.toggle('dark-mode'); this.innerText = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';">🌙</button>
+        <div class="avatar-wrap"><div class="avatar">🎨</div></div>
         <h1>Эрик</h1>
         <div class="tag">Digital Designer</div>
         <p>Проектирую чистые, минималистичные интерфейсы и создаю эстетичный пользовательский опыт. Верю, что хороший дизайн — это как можно меньше дизайна.</p>
-        
-        <!-- Блок Мои работы -->
         <div class="section-title">Портфолио</div>
         <div class="portfolio-grid">
-            
-            <!-- Карточка работы 1 -->
-            <div class="work-card">
-                <div class="work-image img-1">Concept • UI/UX</div>
-                <div class="work-info">
-                    <div class="work-name">Интернет-магазин</div>
-                    <div class="work-desc">Минимализм и чистота</div>
-                </div>
+            <div class="work-card" onclick="openPopup('Интернет-магазин одежды', 'Полный концепт стильного и легкого интернет-магазина. Основной упор сделан на качественную типографику, крупные фотографии и удобную систему фильтрации товаров. Идеально адаптирован под сотки.')">
+                <div class="work-image" style="background-image: url('https://picsum.photos');"></div>
+                <div class="work-info"><div class="work-name">E-commerce Web</div><div class="work-desc">Минимализм и чистота</div></div>
             </div>
-
-            <!-- Карточка работы 2 -->
-            <div class="work-card">
-                <div class="work-image img-2">App • Mobile</div>
-                <div class="work-info">
-                    <div class="work-name">Мобильное приложение</div>
-                    <div class="work-desc">Интерфейс для фитнеса</div>
-                </div>
+            <div class="work-card" onclick="openPopup('Фитнес Приложение', 'Интерфейс мобильного приложения для отслеживания тренировок и планов питания. Мягкая цветовая палитра, крупные карточки прогресса и интерактивные графики активности пользователя.')">
+                <div class="work-image" style="background-image: url('https://picsum.photos');"></div>
+                <div class="work-info"><div class="work-name">Fitness App</div><div class="work-desc">Интерфейс для соток</div></div>
             </div>
-
         </div>
-
-        <a href="https://t.me" target="_blank" class="btn-main">Обсудить проект</a>
+        <div class="social-title">Связаться со мной</div>
+        <div class="social-links">
+            <a href="https://t.me" target="_blank" class="social-btn">✈️</a>
+            <a href="#" class="social-btn">💬</a>
+            <a href="#" class="social-btn">📁</a>
+        </div>
     </div>
-
-    <div class="footer">
-        © 2026 • DESIGNED BY ERIC
+    <div class="footer">© 2026 • DESIGNED BY ERIC</div>
+    <div class="popup-overlay" id="popup" onclick="closePopup()">
+        <div class="popup-card" onclick="event.stopPropagation()">
+            <button class="popup-close" onclick="closePopup()">✕</button>
+            <h2 id="popupTitle" style="margin-bottom: 12px; font-weight: 700;">Название</h2>
+            <p id="popupDesc" style="font-size: 14px; text-align: left; line-height: 1.6;">Описание...</p>
+        </div>
     </div>
-
+    <script>
+        function openPopup(t, d) { document.getElementById('popupTitle').innerText = t; document.getElementById('popupDesc').innerText = d; document.getElementById('popup').classList.add('active'); }
+        function closePopup() { document.getElementById('popup').classList.remove('active'); }
+    </script>
 </body>
 </html>
